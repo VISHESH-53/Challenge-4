@@ -1,0 +1,40 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Stadium {
+  id              String           @id @default(uuid())
+  name            String
+  city            String
+  capacity        Int
+  transit_index   Float
+  incident_reports IncidentReport[]
+  energy_logs     EnergyLog[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model IncidentReport {
+  id          String   @id @default(uuid())
+  stadium_id  String
+  stadium     Stadium  @relation(fields: [stadium_id], references: [id], onDelete: Cascade)
+  description String
+  severity    String   // e.g., "LOW", "MEDIUM", "HIGH", "CRITICAL"
+  timestamp   DateTime @default(now())
+  ai_analysis String   @db.Text
+  createdAt   DateTime @default(now())
+}
+
+model EnergyLog {
+  id                    String   @id @default(uuid())
+  stadium_id            String
+  stadium               Stadium  @relation(fields: [stadium_id], references: [id], onDelete: Cascade)
+  power_usage_kwh       Float
+  timestamp             DateTime @default(now())
+  ai_sleep_mode_active  Boolean  @default(false)
+}

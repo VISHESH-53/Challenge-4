@@ -1,0 +1,6 @@
+{
+  "name": "FIFA 2026 Smart Stadium Command Center",
+  "description": "A comprehensive full-stack command center for managing stadium operations, security, logistics, and sustainability using Generative AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
